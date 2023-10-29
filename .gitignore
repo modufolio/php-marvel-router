@@ -1,0 +1,47 @@
+# Public
+# ---------------
+/public/media
+
+# Temporary files
+# ---------------
+/storage/*
+!/storage/index.html
+*.cache
+
+# Config files
+# ---------------
+.env
+*.lock
+
+# Database
+# ---------------
+*.sqlite
+*.sqlite3
+*.db
+
+#-------------------------
+# Composer
+#-------------------------
+vendor/
+
+#-------------------------
+# Node.js
+#-------------------------
+node_modules/
+
+#-------------------------
+# IDE / Development Files
+#-------------------------
+
+
+# Jetbrains editors (PHPStorm, etc)
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
+
+# Php Unit
+/phpunit*.xml
+/.phpunit.*.cache
+
