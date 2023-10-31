@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /**
  * PHP Marvel Router - A minimalistic PHP router with superpowers
@@ -17,9 +17,8 @@ declare(strict_types=1);
 //ini_set('display_startup_errors', '1');
 //error_reporting(E_ALL);
 
-header_remove("X-Powered-By");
+header_remove('X-Powered-By');
 define('APP_START', microtime(true));
-
 
 
 $app = [
@@ -40,12 +39,10 @@ $app = [
                 ];
             },
         ],
-
         [
             'pattern' => '/api',
             'method' => 'POST',
             'action' => function () {
-
                 return [
                     'message' => 'Post data',
                     'data' => $this->data()
@@ -69,23 +66,27 @@ $router = function ($path, $method) use (&$app) {
     $resolveRoute = function ($path, $method, $routes) use (&$resolveRoute, &$app) {
         foreach ($routes as $route) {
 
-            if (strtoupper($route['method'] ?? 'GET') !== $method) {
-                continue;
-            }
 
             $pattern = strtr($route['pattern'], $app['wildcards']);
 
-            if (preg_match('#^' . $pattern . '$#u', $path, $parameters) === false) {
+            if (preg_match('#^' . $pattern . '$#u', $path, $parameters) === 0) {
                 continue;
             }
 
+            if (strtoupper($route['method'] ?? 'GET') !== $method) {
+                return [
+                    'message' => 'Method not allowed',
+                    'status' => 405,
+                ];
+            }
+
             $arguments = array_slice($parameters, 1);
-            return $route['action']->call(new class {
+            return $route['action']->call(new class () {
                 public function data(): array
                 {
                     $data = empty($_POST) === false ? $_POST : file_get_contents('php://input');
 
-                    if(is_string($data)) {
+                    if (is_string($data)) {
                         $parsedData = json_decode($data, true);
                         return json_last_error() === JSON_ERROR_NONE ? $parsedData : [];
                     }
