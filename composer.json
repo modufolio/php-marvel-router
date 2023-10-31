@@ -1,0 +1,12 @@
+{
+    "name": "modufolio/router",
+    "type": "project",
+    "description": "A minimalistic PHP router",
+    "license": "MIT",
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.37"
+    },
+    "scripts": {
+        "fix": "php-cs-fixer fix"
+    }
+}
